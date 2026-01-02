@@ -9,6 +9,7 @@ export default function AdminMenuPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const [newItem, setNewItem] = useState({
     name: '',
     price: 0,
@@ -75,6 +76,11 @@ export default function AdminMenuPage() {
     setShowAddForm(false);
   };
 
+  const filteredItems = menuItems.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex">
@@ -92,14 +98,31 @@ export default function AdminMenuPage() {
           </div>
 
           <main className="p-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6 gap-4">
               <h1 className="text-3xl font-bold text-amber-900">☕ Kelola Menu</h1>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="bg-amber-900 text-white px-4 py-2 rounded-lg hover:bg-amber-800 transition-colors"
+                className="bg-amber-900 text-white px-4 py-2 rounded-lg hover:bg-amber-800 transition-colors flex items-center gap-2"
               >
-                ➕ Tambah Produk
+                <span>➕</span>
+                Tambah Produk
               </button>
+            </div>
+
+            {/* Search Bar */}
+            <div className="mb-6">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Cari produk..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-400">🔍</span>
+                </div>
+              </div>
             </div>
 
             {showAddForm && (
@@ -174,97 +197,97 @@ export default function AdminMenuPage() {
               </div>
             )}
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Menu</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stok</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {menuItems.map((item) => (
-                      <tr key={item.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mr-3">
-                              <span className="text-lg">☕</span>
-                            </div>
-                            <div>
-                              <div className="text-sm font-medium text-gray-900">{item.name}</div>
-                              <div className="text-sm text-gray-500">{item.description}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          Rp{item.price.toLocaleString('id-ID')}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {editingItem?.id === item.id ? (
-                            <input
-                              type="number"
-                              value={editingItem.stock}
-                              onChange={(e) => updateStock(item.id, parseInt(e.target.value) || 0)}
-                              className="w-20 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-amber-500"
-                              min="0"
-                            />
-                          ) : (
-                            <span className={`text-sm font-medium ${
-                              item.stock > 5 ? 'text-green-600' :
-                              item.stock > 0 ? 'text-yellow-600' : 'text-red-600'
-                            }`}>
-                              {item.stock}
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                            item.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredItems.map((item) => (
+                <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center">
+                        <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mr-3">
+                          <span className="text-xl">☕</span>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
+                          <p className="text-sm text-gray-500 line-clamp-2">{item.description}</p>
+                        </div>
+                      </div>
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        item.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}>
+                        {item.stock > 0 ? 'Tersedia' : 'Habis'}
+                      </span>
+                    </div>
+
+                    <div className="space-y-2 mb-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Harga:</span>
+                        <span className="font-semibold text-gray-900">Rp{item.price.toLocaleString('id-ID')}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Stok:</span>
+                        {editingItem?.id === item.id ? (
+                          <input
+                            type="number"
+                            value={editingItem.stock}
+                            onChange={(e) => updateStock(item.id, parseInt(e.target.value) || 0)}
+                            className="w-16 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-amber-500"
+                            min="0"
+                          />
+                        ) : (
+                          <span className={`font-medium ${
+                            item.stock > 5 ? 'text-green-600' :
+                            item.stock > 0 ? 'text-yellow-600' : 'text-red-600'
                           }`}>
-                            {item.stock > 0 ? 'Tersedia' : 'Habis'}
+                            {item.stock}
                           </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          {editingItem?.id === item.id ? (
-                            <div className="flex space-x-2">
-                              <button
-                                onClick={handleSave}
-                                className="text-green-600 hover:text-green-900"
-                              >
-                                💾 Simpan
-                              </button>
-                              <button
-                                onClick={handleCancel}
-                                className="text-gray-600 hover:text-gray-900"
-                              >
-                                ❌ Batal
-                              </button>
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() => handleEdit(item)}
-                              className="text-amber-600 hover:text-amber-900"
-                            >
-                              ✏️ Edit
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end">
+                      {editingItem?.id === item.id ? (
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={handleSave}
+                            className="text-green-600 hover:text-green-900 text-sm font-medium"
+                          >
+                            💾 Simpan
+                          </button>
+                          <button
+                            onClick={handleCancel}
+                            className="text-gray-600 hover:text-gray-900 text-sm font-medium"
+                          >
+                            ❌ Batal
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => handleEdit(item)}
+                          className="text-amber-600 hover:text-amber-900 text-sm font-medium"
+                        >
+                          ✏️ Edit
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
+
+            {filteredItems.length === 0 && menuItems.length > 0 && (
+              <div className="bg-white rounded-lg shadow-md p-8 text-center">
+                <div className="text-4xl mb-4">🔍</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Produk tidak ditemukan</h3>
+                <p className="text-gray-600">Coba kata kunci yang berbeda</p>
+              </div>
+            )}
 
             {menuItems.length === 0 && (
               <div className="bg-white rounded-lg shadow-md p-8 text-center">
                 <div className="text-4xl mb-4">☕</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Menu tidak ditemukan</h3>
-                <p className="text-gray-600">Data menu belum tersedia</p>
+                <p className="text-gray-600">Belum ada produk yang ditambahkan</p>
               </div>
             )}
           </main>
