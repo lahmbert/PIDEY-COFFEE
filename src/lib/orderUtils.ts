@@ -41,7 +41,7 @@ const defaultStock: MenuItem[] = [
     name: "Cappuccino",
     price: 25000,
     stock: 10,
-    image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+    image: "☕",
     description: "Classic Italian coffee with steamed milk foam"
   },
   {
@@ -49,7 +49,7 @@ const defaultStock: MenuItem[] = [
     name: "Espresso",
     price: 20000,
     stock: 15,
-    image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+    image: "⚡☕",
     description: "Strong and concentrated coffee shot"
   },
   {
@@ -57,7 +57,7 @@ const defaultStock: MenuItem[] = [
     name: "Latte",
     price: 28000,
     stock: 8,
-    image: "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+    image: "🥛☕",
     description: "Smooth coffee with steamed milk"
   },
   {
@@ -65,7 +65,7 @@ const defaultStock: MenuItem[] = [
     name: "Americano",
     price: 22000,
     stock: 12,
-    image: "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+    image: "💧☕",
     description: "Espresso diluted with hot water"
   },
   {
@@ -73,7 +73,7 @@ const defaultStock: MenuItem[] = [
     name: "Mocha",
     price: 30000,
     stock: 6,
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+    image: "🍫☕",
     description: "Chocolate flavored coffee with milk"
   },
   {
@@ -81,7 +81,7 @@ const defaultStock: MenuItem[] = [
     name: "Caramel Macchiato",
     price: 32000,
     stock: 5,
-    image: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+    image: "🍯☕",
     description: "Vanilla syrup, espresso, and caramel"
   }
 ];

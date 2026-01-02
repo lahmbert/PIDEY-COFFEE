@@ -13,17 +13,23 @@ export default function MenuCard({ item, onAddToCart }: MenuCardProps) {
 
   return (
     <div className="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100">
-      <div className="relative h-48 md:h-56 bg-gradient-to-br from-amber-200 via-orange-200 to-red-200 overflow-hidden">
-        <Image
-          src={item.image}
-          alt={item.name}
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-500"
-          onError={(e) => {
-            // Fallback to placeholder if image fails to load
-            (e.target as HTMLImageElement).src = `https://via.placeholder.com/300x200/8B4513/FFFFFF?text=${encodeURIComponent(item.name)}`;
-          }}
-        />
+      <div className="relative h-48 md:h-56 bg-gradient-to-br from-amber-200 via-orange-200 to-red-200 overflow-hidden flex items-center justify-center">
+        {item.image.startsWith('http') ? (
+          <Image
+            src={item.image}
+            alt={item.name}
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
+            onError={(e) => {
+              // Fallback to placeholder if image fails to load
+              (e.target as HTMLImageElement).src = `https://via.placeholder.com/300x200/8B4513/FFFFFF?text=${encodeURIComponent(item.name)}`;
+            }}
+          />
+        ) : (
+          <span className="text-6xl md:text-7xl group-hover:scale-110 transition-transform duration-500">
+            {item.image}
+          </span>
+        )}
         {isOutOfStock && (
           <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm">
             <span className="text-white font-bold text-lg md:text-xl bg-red-600 px-3 md:px-4 py-2 rounded-full">Out of Stock</span>
