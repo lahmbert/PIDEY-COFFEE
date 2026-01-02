@@ -12,34 +12,44 @@ export default function MenuCard({ item, onAddToCart }: MenuCardProps) {
   const isOutOfStock = item.stock <= 0;
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="relative h-48 bg-gray-200">
+    <div className="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100">
+      <div className="relative h-56 bg-gradient-to-br from-amber-200 via-orange-200 to-red-200 overflow-hidden">
         <Image
           src={item.image}
           alt={item.name}
           fill
-          className="object-cover"
+          className="object-cover group-hover:scale-110 transition-transform duration-500"
           onError={(e) => {
             // Fallback to placeholder if image fails to load
             (e.target as HTMLImageElement).src = `https://via.placeholder.com/300x200/8B4513/FFFFFF?text=${encodeURIComponent(item.name)}`;
           }}
         />
         {isOutOfStock && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">Out of Stock</span>
+          <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm">
+            <span className="text-white font-bold text-xl bg-red-600 px-4 py-2 rounded-full">Out of Stock</span>
+          </div>
+        )}
+        {!isOutOfStock && item.stock <= 3 && (
+          <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+            Limited!
           </div>
         )}
       </div>
 
-      <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.name}</h3>
-        <p className="text-gray-600 text-sm mb-3">{item.description}</p>
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-amber-900 mb-2 group-hover:text-orange-700 transition-colors">
+          {item.name}
+        </h3>
+        <p className="text-gray-600 text-sm mb-4 leading-relaxed">{item.description}</p>
 
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-xl font-bold text-amber-900">
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
             Rp{item.price.toLocaleString('id-ID')}
           </span>
-          <span className={`text-sm font-medium ${item.stock > 5 ? 'text-green-600' : item.stock > 0 ? 'text-yellow-600' : 'text-red-600'}`}>
+          <span className={`text-sm font-bold px-3 py-1 rounded-full ${
+            item.stock > 5 ? 'bg-green-100 text-green-700' :
+            item.stock > 0 ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
+          }`}>
             Stock: {item.stock}
           </span>
         </div>
@@ -47,13 +57,13 @@ export default function MenuCard({ item, onAddToCart }: MenuCardProps) {
         <button
           onClick={() => onAddToCart(item)}
           disabled={isOutOfStock}
-          className={`w-full py-2 px-4 rounded-md font-medium transition-colors ${
+          className={`w-full py-3 px-6 rounded-xl font-semibold text-lg transition-all duration-300 transform ${
             isOutOfStock
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-amber-900 text-white hover:bg-amber-800'
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-amber-600 to-orange-600 text-white hover:from-amber-700 hover:to-orange-700 hover:shadow-lg hover:-translate-y-1 active:translate-y-0'
           }`}
         >
-          {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+          {isOutOfStock ? 'Out of Stock' : '🛒 Add to Cart'}
         </button>
       </div>
     </div>

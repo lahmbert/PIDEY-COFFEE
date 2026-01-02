@@ -3,89 +3,102 @@ import Navbar from '@/components/Navbar';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
       <Navbar />
 
       {/* Hero Section */}
       <main className="container mx-auto px-4 py-16">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold text-amber-900 mb-6">
-            ☕ Pidey Coffee
+          {/* Coffee Cup Animation */}
+          <div className="mb-8 animate-bounce">
+            <span className="text-8xl md:text-9xl">☕</span>
+          </div>
+
+          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-amber-800 via-orange-700 to-red-700 bg-clip-text text-transparent mb-6 animate-fade-in">
+            Pidey Coffee
           </h1>
-          <p className="text-xl md:text-2xl text-amber-800 mb-8 font-light">
+          <p className="text-xl md:text-2xl text-amber-800 mb-8 font-light leading-relaxed">
             Nikmati cita rasa kopi terbaik dengan pengalaman pemesanan yang modern
           </p>
-          <p className="text-lg text-amber-700 mb-12 max-w-2xl mx-auto">
+          <p className="text-lg text-amber-700 mb-12 max-w-2xl mx-auto leading-relaxed">
             Kami menyajikan berbagai jenis kopi berkualitas tinggi dengan sistem pemesanan
             langsung ke WhatsApp. Stok real-time, pelayanan cepat, dan pengalaman yang tak terlupakan.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link
               href="/menu"
-              className="bg-amber-900 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-amber-800 transition-colors shadow-lg"
+              className="group bg-gradient-to-r from-amber-600 to-orange-600 text-white px-10 py-5 rounded-2xl font-semibold text-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
-              🍽️ Lihat Menu
+              <span className="flex items-center gap-2">
+                🍽️ Lihat Menu
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
             </Link>
             <Link
               href="/order"
-              className="bg-white text-amber-900 px-8 py-4 rounded-lg font-semibold text-lg border-2 border-amber-900 hover:bg-amber-50 transition-colors shadow-lg"
+              className="group bg-white text-amber-900 px-10 py-5 rounded-2xl font-semibold text-lg border-2 border-amber-600 hover:bg-amber-50 hover:border-amber-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
-              🛒 Order Sekarang
+              <span className="flex items-center gap-2">
+                🛒 Order Sekarang
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
             </Link>
           </div>
         </div>
 
         {/* Features */}
-        <div className="mt-20 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-            <div className="text-4xl mb-4">📱</div>
-            <h3 className="text-xl font-semibold text-amber-900 mb-3">Order via WhatsApp</h3>
-            <p className="text-gray-600">
+        <div className="mt-24 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="group bg-white p-8 rounded-2xl shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100">
+            <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📱</div>
+            <h3 className="text-xl font-bold text-amber-900 mb-4">Order via WhatsApp</h3>
+            <p className="text-gray-600 leading-relaxed">
               Pesan dengan mudah melalui WhatsApp. Sistem otomatis akan mengirim detail pesanan Anda.
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-            <div className="text-4xl mb-4">⚡</div>
-            <h3 className="text-xl font-semibold text-amber-900 mb-3">Stok Real-time</h3>
-            <p className="text-gray-600">
+          <div className="group bg-white p-8 rounded-2xl shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100">
+            <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">⚡</div>
+            <h3 className="text-xl font-bold text-amber-900 mb-4">Stok Real-time</h3>
+            <p className="text-gray-600 leading-relaxed">
               Pantau ketersediaan menu secara real-time. Stok diperbarui otomatis setiap ada pesanan.
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-            <div className="text-4xl mb-4">👨‍💼</div>
-            <h3 className="text-xl font-semibold text-amber-900 mb-3">Admin Panel</h3>
-            <p className="text-gray-600">
+          <div className="group bg-white p-8 rounded-2xl shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100">
+            <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">👨‍💼</div>
+            <h3 className="text-xl font-bold text-amber-900 mb-4">Admin Panel</h3>
+            <p className="text-gray-600 leading-relaxed">
               Sistem manajemen lengkap untuk mengelola pesanan, stok, dan status pengiriman.
             </p>
           </div>
         </div>
 
         {/* Coffee Types Preview */}
-        <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold text-amber-900 mb-8">Menu Unggulan Kami</h2>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="mt-24 text-center">
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-amber-800 to-orange-700 bg-clip-text text-transparent mb-12">
+            Menu Unggulan Kami
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
-              { name: 'Cappuccino', price: 'Rp 25.000', desc: 'Kopi klasik dengan foam susu' },
-              { name: 'Espresso', price: 'Rp 20.000', desc: 'Kopi pekat ala Italia' },
-              { name: 'Latte', price: 'Rp 28.000', desc: 'Kopi dengan susu steamed' },
+              { name: 'Cappuccino', price: 'Rp 25.000', desc: 'Kopi klasik dengan foam susu', icon: '☕' },
+              { name: 'Espresso', price: 'Rp 20.000', desc: 'Kopi pekat ala Italia', icon: '⚡' },
+              { name: 'Latte', price: 'Rp 28.000', desc: 'Kopi dengan susu steamed', icon: '🥛' },
             ].map((coffee, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-full h-32 bg-gradient-to-br from-amber-200 to-amber-400 rounded-lg mb-4 flex items-center justify-center">
-                  <span className="text-4xl">☕</span>
+              <div key={index} className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 border border-amber-100">
+                <div className="w-full h-40 bg-gradient-to-br from-amber-200 via-orange-200 to-red-200 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                  <span className="text-6xl group-hover:rotate-12 transition-transform duration-300">{coffee.icon}</span>
                 </div>
-                <h3 className="font-semibold text-lg text-amber-900">{coffee.name}</h3>
-                <p className="text-amber-700 font-bold mb-2">{coffee.price}</p>
-                <p className="text-gray-600 text-sm">{coffee.desc}</p>
+                <h3 className="font-bold text-xl text-amber-900 mb-2">{coffee.name}</h3>
+                <p className="text-2xl font-bold text-orange-600 mb-3">{coffee.price}</p>
+                <p className="text-gray-600 leading-relaxed">{coffee.desc}</p>
               </div>
             ))}
           </div>
 
           <Link
             href="/menu"
-            className="inline-block mt-8 bg-amber-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-amber-800 transition-colors"
+            className="inline-block mt-12 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
           >
             Lihat Semua Menu →
           </Link>

@@ -103,21 +103,26 @@ export default function OrderPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
         <Navbar />
 
-        <main className="container mx-auto px-4 py-16">
-          <div className="text-center max-w-md mx-auto">
-            <div className="text-6xl mb-4">🛒</div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Keranjang Kosong</h1>
-            <p className="text-gray-600 mb-8">
+        <main className="container mx-auto px-4 py-20">
+          <div className="text-center max-w-lg mx-auto">
+            <div className="text-8xl mb-8 animate-bounce">🛒</div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-800 to-orange-700 bg-clip-text text-transparent mb-6">
+              Keranjang Kosong
+            </h1>
+            <p className="text-xl text-amber-700 mb-10 leading-relaxed">
               Belum ada item di keranjang Anda. Mari pilih menu favorit Anda!
             </p>
             <a
               href="/menu"
-              className="bg-amber-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-amber-800 transition-colors inline-block"
+              className="inline-block bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
-              Lihat Menu
+              <span className="flex items-center gap-2">
+                🍽️ Lihat Menu
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </span>
             </a>
           </div>
         </main>
@@ -126,95 +131,130 @@ export default function OrderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold text-amber-900 mb-8">🛒 Keranjang Pesanan</h1>
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="text-7xl mb-6">🛒</div>
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-800 via-orange-700 to-red-700 bg-clip-text text-transparent mb-4">
+              Keranjang Pesanan
+            </h1>
+            <p className="text-xl text-amber-800">Siap untuk checkout? Konfirmasi pesanan Anda di bawah.</p>
+          </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <div className="space-y-4">
-              {cart.map((item) => (
-                <div key={item.id} className="flex items-center justify-between border-b border-gray-200 pb-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 bg-amber-100 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">☕</span>
+          <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 border border-amber-100">
+            <div className="space-y-6">
+              {cart.map((item, index) => (
+                <div key={item.id} className={`flex items-center justify-between border-b border-amber-100 pb-6 animate-fade-in`} style={{animationDelay: `${index * 0.1}s`}}>
+                  <div className="flex items-center space-x-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-amber-200 to-orange-200 rounded-2xl flex items-center justify-center shadow-lg">
+                      <span className="text-3xl">☕</span>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{item.name}</h3>
-                      <p className="text-amber-700 font-medium">Rp{item.price.toLocaleString('id-ID')}</p>
+                      <h3 className="font-bold text-xl text-amber-900 mb-1">{item.name}</h3>
+                      <p className="text-2xl font-bold text-orange-600">Rp{item.price.toLocaleString('id-ID')}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-6">
+                    <div className="flex items-center space-x-3 bg-amber-50 rounded-2xl p-2">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
+                        className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-amber-100 transition-colors shadow-md hover:shadow-lg"
                       >
-                        -
+                        <span className="text-xl font-bold text-amber-700">-</span>
                       </button>
-                      <span className="w-8 text-center font-medium">{item.quantity}</span>
+                      <span className="w-12 text-center font-bold text-xl text-amber-900">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
+                        className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-amber-100 transition-colors shadow-md hover:shadow-lg"
                       >
-                        +
+                        <span className="text-xl font-bold text-amber-700">+</span>
                       </button>
                     </div>
 
-                    <div className="text-right">
-                      <p className="font-semibold text-gray-900">
+                    <div className="text-right min-w-[120px]">
+                      <p className="font-bold text-2xl text-orange-600">
                         Rp{(item.price * item.quantity).toLocaleString('id-ID')}
                       </p>
                     </div>
 
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-red-600 hover:text-red-800 p-2"
+                      className="w-12 h-12 bg-red-100 hover:bg-red-200 rounded-2xl flex items-center justify-center transition-colors shadow-md hover:shadow-lg group"
                     >
-                      🗑️
+                      <span className="text-xl group-hover:scale-110 transition-transform">🗑️</span>
                     </button>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <div className="flex justify-between items-center text-xl font-bold">
-                <span>Total:</span>
-                <span className="text-amber-900">Rp{getTotal().toLocaleString('id-ID')}</span>
+            <div className="mt-8 pt-8 border-t-2 border-amber-200">
+              <div className="flex justify-between items-center text-3xl font-bold bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-2xl">
+                <span className="text-amber-900">Total Pembayaran:</span>
+                <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                  Rp{getTotal().toLocaleString('id-ID')}
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <h3 className="font-semibold text-blue-900 mb-2">📱 Cara Pemesanan:</h3>
-            <ol className="text-blue-800 text-sm space-y-1">
-              <li>1. Klik tombol &quot;Pesan via WhatsApp&quot; di bawah</li>
-              <li>2. Pesan akan otomatis terkirim ke admin</li>
-              <li>3. Admin akan memproses pesanan Anda</li>
-              <li>4. Cek status pesanan dengan SN yang diberikan</li>
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 mb-8 shadow-lg">
+            <h3 className="font-bold text-blue-900 mb-4 text-xl flex items-center gap-2">
+              <span className="text-2xl">📱</span>
+              Cara Pemesanan:
+            </h3>
+            <ol className="text-blue-800 text-base space-y-2">
+              <li className="flex items-center gap-2">
+                <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</span>
+                Klik tombol &quot;Pesan via WhatsApp&quot; di bawah
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</span>
+                Pesan akan otomatis terkirim ke admin
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</span>
+                Admin akan memproses pesanan Anda
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">4</span>
+                Cek status pesanan dengan SN yang diberikan
+              </li>
             </ol>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-6">
             <a
               href="/menu"
-              className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors text-center"
+              className="bg-gradient-to-r from-gray-200 to-gray-300 text-gray-800 px-8 py-4 rounded-2xl font-semibold text-lg hover:from-gray-300 hover:to-gray-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-center flex items-center justify-center gap-2"
             >
-              ← Tambah Menu Lain
+              <span>←</span>
+              Tambah Menu Lain
             </a>
 
             <button
               onClick={placeOrder}
               disabled={isProcessing}
-              className={`bg-green-600 text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-green-700 transition-colors flex-1 ${
-                isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+              className={`bg-gradient-to-r from-green-600 to-emerald-600 text-white px-10 py-4 rounded-2xl font-bold text-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 flex-1 flex items-center justify-center gap-3 ${
+                isProcessing ? 'opacity-50 cursor-not-allowed transform-none' : ''
               }`}
             >
-              {isProcessing ? '🔄 Memproses...' : '📱 Pesan via WhatsApp'}
+              {isProcessing ? (
+                <>
+                  <span className="animate-spin">🔄</span>
+                  Memproses...
+                </>
+              ) : (
+                <>
+                  <span>📱</span>
+                  Pesan via WhatsApp
+                  <span className="text-lg">→</span>
+                </>
+              )}
             </button>
           </div>
         </div>
