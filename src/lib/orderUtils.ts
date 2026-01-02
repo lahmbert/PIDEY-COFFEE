@@ -41,7 +41,7 @@ const defaultStock: MenuItem[] = [
     name: "Cappuccino",
     price: 25000,
     stock: 10,
-    image: "☕",
+    image: "",
     description: "Classic Italian coffee with steamed milk foam"
   },
   {
@@ -49,7 +49,7 @@ const defaultStock: MenuItem[] = [
     name: "Espresso",
     price: 20000,
     stock: 15,
-    image: "⚡☕",
+    image: "",
     description: "Strong and concentrated coffee shot"
   },
   {
@@ -57,7 +57,7 @@ const defaultStock: MenuItem[] = [
     name: "Latte",
     price: 28000,
     stock: 8,
-    image: "🥛☕",
+    image: "",
     description: "Smooth coffee with steamed milk"
   },
   {
@@ -65,7 +65,7 @@ const defaultStock: MenuItem[] = [
     name: "Americano",
     price: 22000,
     stock: 12,
-    image: "💧☕",
+    image: "",
     description: "Espresso diluted with hot water"
   },
   {
@@ -73,7 +73,7 @@ const defaultStock: MenuItem[] = [
     name: "Mocha",
     price: 30000,
     stock: 6,
-    image: "🍫☕",
+    image: "",
     description: "Chocolate flavored coffee with milk"
   },
   {
@@ -81,7 +81,7 @@ const defaultStock: MenuItem[] = [
     name: "Caramel Macchiato",
     price: 32000,
     stock: 5,
-    image: "🍯☕",
+    image: "",
     description: "Vanilla syrup, espresso, and caramel"
   }
 ];

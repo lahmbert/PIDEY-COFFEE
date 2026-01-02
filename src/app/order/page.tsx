@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
+import CoffeeIcon from '@/components/CoffeeIcon';
 import { OrderItem, Order, generateSN, createWhatsAppMessage, loadOrders, saveOrders, loadStock, saveStock, updateStockAfterOrder } from '@/lib/orderUtils';
 
 export default function OrderPage() {
@@ -151,22 +152,7 @@ export default function OrderPage() {
                 <div key={item.id} className={`flex flex-col md:flex-row md:items-center md:justify-between border-b border-amber-100 pb-4 md:pb-6 animate-fade-in`} style={{animationDelay: `${index * 0.1}s`}}>
                   <div className="flex items-center space-x-4 md:space-x-6 mb-4 md:mb-0">
                     <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-amber-200 to-orange-200 rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex items-center justify-center">
-                      {item.image.startsWith('http') ? (
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          width={80}
-                          height={80}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = `https://via.placeholder.com/80x80/8B4513/FFFFFF?text=${encodeURIComponent(item.name)}`;
-                          }}
-                        />
-                      ) : (
-                        <span className="text-3xl md:text-4xl">
-                          {item.image}
-                        </span>
-                      )}
+                      <CoffeeIcon type={item.id} className="w-12 h-12 md:w-16 md:h-16" />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg md:text-xl text-amber-900 mb-1">{item.name}</h3>
