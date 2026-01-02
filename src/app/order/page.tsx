@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import { OrderItem, Order, generateSN, createWhatsAppMessage, loadOrders, saveOrders, loadStock, saveStock, updateStockAfterOrder } from '@/lib/orderUtils';
 
@@ -149,8 +150,17 @@ export default function OrderPage() {
               {cart.map((item, index) => (
                 <div key={item.id} className={`flex flex-col md:flex-row md:items-center md:justify-between border-b border-amber-100 pb-4 md:pb-6 animate-fade-in`} style={{animationDelay: `${index * 0.1}s`}}>
                   <div className="flex items-center space-x-4 md:space-x-6 mb-4 md:mb-0">
-                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-amber-200 to-orange-200 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg">
-                      <span className="text-2xl md:text-3xl">☕</span>
+                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-amber-200 to-orange-200 rounded-xl md:rounded-2xl overflow-hidden shadow-lg">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = `https://via.placeholder.com/80x80/8B4513/FFFFFF?text=${encodeURIComponent(item.name)}`;
+                        }}
+                      />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg md:text-xl text-amber-900 mb-1">{item.name}</h3>
