@@ -10,8 +10,11 @@ export default function MenuPage() {
   const [cart, setCart] = useState<OrderItem[]>([]);
 
   useEffect(() => {
-    const stock = loadStock();
-    setMenuItems(stock);
+    const loadData = async () => {
+      const stock = await loadStock();
+      setMenuItems(stock);
+    };
+    loadData();
 
     // Load cart from localStorage
     const savedCart = localStorage.getItem('coffee_cart');

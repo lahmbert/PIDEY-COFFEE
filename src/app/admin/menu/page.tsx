@@ -21,18 +21,19 @@ export default function AdminMenuPage() {
   });
   const router = useRouter();
 
-  const loadMenuData = () => {
-    const stock = loadStock();
+  const loadMenuData = async () => {
+    const stock = await loadStock();
     setMenuItems(stock);
   };
 
   useEffect(() => {
-    // Check if already authenticated
-    const authStatus = localStorage.getItem('admin_authenticated');
-    if (authStatus === 'true') {
-      setIsAuthenticated(true);
-      loadMenuData();
-    } else {
+    const init = async () => {
+      // Check if already authenticated
+      const authStatus = localStorage.getItem('admin_authenticated');
+      if (authStatus === 'true') {
+        setIsAuthenticated(true);
+        await loadMenuData();
+      } else {
       // Redirect to main admin page for login
       router.push('/admin');
     }

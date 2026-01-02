@@ -77,7 +77,7 @@ export default function OrderPage() {
       saveOrders(orders);
 
       // Update stock
-      const currentStock = loadStock();
+      const currentStock = await loadStock();
       const updatedStock = updateStockAfterOrder(currentStock, cart);
       saveStock(updatedStock);
 

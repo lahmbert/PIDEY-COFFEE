@@ -15,21 +15,24 @@ export default function AdminStockPage() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const router = useRouter();
 
-  const loadMenuData = () => {
-    const stock = loadStock();
+  const loadMenuData = async () => {
+    const stock = await loadStock();
     setMenuItems(stock);
   };
 
   useEffect(() => {
-    // Check if already authenticated
-    const authStatus = localStorage.getItem('admin_authenticated');
-    if (authStatus === 'true') {
-      setIsAuthenticated(true);
-      loadMenuData();
-    } else {
-      // Redirect to main admin page for login
-      router.push('/admin');
-    }
+    const init = async () => {
+      // Check if already authenticated
+      const authStatus = localStorage.getItem('admin_authenticated');
+      if (authStatus === 'true') {
+        setIsAuthenticated(true);
+        await loadMenuData();
+      } else {
+        // Redirect to main admin page for login
+        router.push('/admin');
+      }
+    };
+    init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

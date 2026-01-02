@@ -37,63 +37,71 @@ export function generateSN(): string {
 }
 
 // Load stock from localStorage or JSON file
-export function loadStock(): MenuItem[] {
+export async function loadStock(): Promise<MenuItem[]> {
   if (typeof window === 'undefined') return [];
   const stored = localStorage.getItem('coffee_stock');
   if (stored) {
     return JSON.parse(stored);
   }
-  // Fallback to default stock
-  return [
-    {
-      id: "cappuccino",
-      name: "Cappuccino",
-      price: 25000,
-      stock: 10,
-      image: "/images/cappuccino.jpg",
-      description: "Classic Italian coffee with steamed milk foam"
-    },
-    {
-      id: "espresso",
-      name: "Espresso",
-      price: 20000,
-      stock: 15,
-      image: "/images/espresso.jpg",
-      description: "Strong and concentrated coffee shot"
-    },
-    {
-      id: "latte",
-      name: "Latte",
-      price: 28000,
-      stock: 8,
-      image: "/images/latte.jpg",
-      description: "Smooth coffee with steamed milk"
-    },
-    {
-      id: "americano",
-      name: "Americano",
-      price: 22000,
-      stock: 12,
-      image: "/images/americano.jpg",
-      description: "Espresso diluted with hot water"
-    },
-    {
-      id: "mocha",
-      name: "Mocha",
-      price: 30000,
-      stock: 6,
-      image: "/images/mocha.jpg",
-      description: "Chocolate flavored coffee with milk"
-    },
-    {
-      id: "caramel-macchiato",
-      name: "Caramel Macchiato",
-      price: 32000,
-      stock: 5,
-      image: "/images/caramel-macchiato.jpg",
-      description: "Vanilla syrup, espresso, and caramel"
-    }
-  ];
+  // Fallback to default stock from JSON file
+  try {
+    const response = await fetch('/stock.json');
+    const data: StockData = await response.json();
+    return data.menu;
+  } catch (error) {
+    console.error('Failed to load stock from JSON:', error);
+    // Fallback to hardcoded default
+    return [
+      {
+        id: "cappuccino",
+        name: "Cappuccino",
+        price: 25000,
+        stock: 10,
+        image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+        description: "Classic Italian coffee with steamed milk foam"
+      },
+      {
+        id: "espresso",
+        name: "Espresso",
+        price: 20000,
+        stock: 15,
+        image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+        description: "Strong and concentrated coffee shot"
+      },
+      {
+        id: "latte",
+        name: "Latte",
+        price: 28000,
+        stock: 8,
+        image: "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+        description: "Smooth coffee with steamed milk"
+      },
+      {
+        id: "americano",
+        name: "Americano",
+        price: 22000,
+        stock: 12,
+        image: "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+        description: "Espresso diluted with hot water"
+      },
+      {
+        id: "mocha",
+        name: "Mocha",
+        price: 30000,
+        stock: 6,
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+        description: "Chocolate flavored coffee with milk"
+      },
+      {
+        id: "caramel-macchiato",
+        name: "Caramel Macchiato",
+        price: 32000,
+        stock: 5,
+        image: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+        description: "Vanilla syrup, espresso, and caramel"
+      }
+    ];
+  }
 }
 
 // Save stock to localStorage
