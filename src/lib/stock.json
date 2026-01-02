@@ -1,0 +1,52 @@
+{
+  "menu": [
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "price": 25000,
+      "stock": 10,
+      "image": "/images/cappuccino.jpg",
+      "description": "Classic Italian coffee with steamed milk foam"
+    },
+    {
+      "id": "espresso",
+      "name": "Espresso",
+      "price": 20000,
+      "stock": 15,
+      "image": "/images/espresso.jpg",
+      "description": "Strong and concentrated coffee shot"
+    },
+    {
+      "id": "latte",
+      "name": "Latte",
+      "price": 28000,
+      "stock": 8,
+      "image": "/images/latte.jpg",
+      "description": "Smooth coffee with steamed milk"
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "price": 22000,
+      "stock": 12,
+      "image": "/images/americano.jpg",
+      "description": "Espresso diluted with hot water"
+    },
+    {
+      "id": "mocha",
+      "name": "Mocha",
+      "price": 30000,
+      "stock": 6,
+      "image": "/images/mocha.jpg",
+      "description": "Chocolate flavored coffee with milk"
+    },
+    {
+      "id": "caramel-macchiato",
+      "name": "Caramel Macchiato",
+      "price": 32000,
+      "stock": 5,
+      "image": "/images/caramel-macchiato.jpg",
+      "description": "Vanilla syrup, espresso, and caramel"
+    }
+  ]
+}
