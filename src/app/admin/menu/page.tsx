@@ -8,6 +8,14 @@ export default function AdminMenuPage() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newItem, setNewItem] = useState({
+    name: '',
+    price: 0,
+    stock: 0,
+    image: '',
+    description: ''
+  });
 
   const loadMenuData = () => {
     const stock = loadStock();
@@ -44,6 +52,29 @@ export default function AdminMenuPage() {
     }
   };
 
+  const handleAddItem = () => {
+    if (!newItem.name || newItem.price <= 0) {
+      alert('Nama dan harga harus diisi dengan benar!');
+      return;
+    }
+
+    const id = newItem.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const item: MenuItem = {
+      id,
+      name: newItem.name,
+      price: newItem.price,
+      stock: newItem.stock,
+      image: newItem.image || '/images/default-coffee.jpg',
+      description: newItem.description
+    };
+
+    const updatedItems = [...menuItems, item];
+    setMenuItems(updatedItems);
+    saveStock(updatedItems);
+    setNewItem({ name: '', price: 0, stock: 0, image: '', description: '' });
+    setShowAddForm(false);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex">
@@ -63,7 +94,85 @@ export default function AdminMenuPage() {
           <main className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-3xl font-bold text-amber-900">☕ Kelola Menu</h1>
+              <button
+                onClick={() => setShowAddForm(true)}
+                className="bg-amber-900 text-white px-4 py-2 rounded-lg hover:bg-amber-800 transition-colors"
+              >
+                ➕ Tambah Produk
+              </button>
             </div>
+
+            {showAddForm && (
+              <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Tambah Produk Baru</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Nama Produk</label>
+                    <input
+                      type="text"
+                      value={newItem.name}
+                      onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+                      placeholder="Contoh: Kopi Susu"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Harga (Rp)</label>
+                    <input
+                      type="number"
+                      value={newItem.price}
+                      onChange={(e) => setNewItem({ ...newItem, price: parseInt(e.target.value) || 0 })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+                      min="0"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Stok</label>
+                    <input
+                      type="number"
+                      value={newItem.stock}
+                      onChange={(e) => setNewItem({ ...newItem, stock: parseInt(e.target.value) || 0 })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+                      min="0"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">URL Gambar</label>
+                    <input
+                      type="text"
+                      value={newItem.image}
+                      onChange={(e) => setNewItem({ ...newItem, image: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+                      placeholder="/images/nama-produk.jpg"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
+                    <textarea
+                      value={newItem.description}
+                      onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+                      rows={3}
+                      placeholder="Deskripsi produk..."
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end space-x-3 mt-4">
+                  <button
+                    onClick={() => setShowAddForm(false)}
+                    className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    onClick={handleAddItem}
+                    className="px-4 py-2 bg-amber-900 text-white rounded-lg hover:bg-amber-800"
+                  >
+                    Tambah Produk
+                  </button>
+                </div>
+              </div>
+            )}
 
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="overflow-x-auto">

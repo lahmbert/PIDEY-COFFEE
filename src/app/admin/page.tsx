@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Sidebar from '@/components/Sidebar';
 import { Order, loadOrders } from '@/lib/orderUtils';
 
@@ -118,6 +119,39 @@ export default function AdminPage() {
               </button>
             </div>
 
+            {/* Quick Actions */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Link href="/admin/orders" className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="flex items-center">
+                  <div className="text-3xl mr-4">📋</div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Kelola Pesanan</h3>
+                    <p className="text-gray-600">Lihat dan update status pesanan</p>
+                  </div>
+                </div>
+              </Link>
+
+              <Link href="/admin/menu" className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="flex items-center">
+                  <div className="text-3xl mr-4">☕</div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Kelola Menu</h3>
+                    <p className="text-gray-600">Tambah, edit produk dan stok</p>
+                  </div>
+                </div>
+              </Link>
+
+              <Link href="/admin/stock" className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="flex items-center">
+                  <div className="text-3xl mr-4">📦</div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Pantau Stok</h3>
+                    <p className="text-gray-600">Monitor inventori produk</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
             {/* Stats Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8">
               <div className="bg-white p-3 md:p-6 rounded-lg shadow-md">
@@ -151,53 +185,36 @@ export default function AdminPage() {
               </div>
             </div>
 
-            {/* Recent Orders */}
-            <div className="bg-white rounded-lg shadow-md">
-              <div className="p-4 md:p-6 border-b border-gray-200">
+            {/* Recent Orders Summary */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg md:text-xl font-semibold text-gray-900">Pesanan Terbaru</h2>
+                <Link href="/admin/orders" className="text-amber-600 hover:text-amber-800 text-sm font-medium">
+                  Lihat Semua →
+                </Link>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-full md:min-w-0">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SN</th>
-                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Menu</th>
-                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {orders.slice(0, 10).map((order) => (
-                      <tr key={order.sn} className="hover:bg-gray-50">
-                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
-                          {order.sn}
-                        </td>
-                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
-                          {order.items.length} item{order.items.length > 1 ? 's' : ''}
-                        </td>
-                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900">
-                          Rp{order.total.toLocaleString('id-ID')}
-                        </td>
-                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(order.status)}`}>
-                            {order.status}
-                          </span>
-                        </td>
-                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
-                          {new Date(order.createdAt).toLocaleDateString('id-ID')}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {orders.length === 0 && (
-                <div className="p-6 md:p-8 text-center">
-                  <div className="text-3xl md:text-4xl mb-3 md:mb-4">📋</div>
-                  <p className="text-sm md:text-base text-gray-500">Belum ada pesanan</p>
+              {orders.length > 0 ? (
+                <div className="space-y-3">
+                  {orders.slice(0, 5).map((order) => (
+                    <div key={order.sn} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <div className="text-sm font-medium text-gray-900">{order.sn}</div>
+                        <div className="text-sm text-gray-500">{order.items.length} item</div>
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(order.status)}`}>
+                          {order.status}
+                        </span>
+                      </div>
+                      <div className="text-sm font-medium text-gray-900">
+                        Rp{order.total.toLocaleString('id-ID')}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="text-3xl mb-3">📋</div>
+                  <p className="text-gray-500">Belum ada pesanan</p>
                 </div>
               )}
             </div>
