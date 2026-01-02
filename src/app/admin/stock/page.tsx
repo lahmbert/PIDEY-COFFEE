@@ -1,16 +1,19 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/Sidebar';
 import { MenuItem, loadStock, saveStock } from '@/lib/orderUtils';
 
 export default function AdminStockPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filter, setFilter] = useState<'all' | 'low' | 'out'>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'stock' | 'value'>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const router = useRouter();
 
   const loadMenuData = () => {
     const stock = loadStock();
@@ -18,7 +21,15 @@ export default function AdminStockPage() {
   };
 
   useEffect(() => {
-    loadMenuData();
+    // Check if already authenticated
+    const authStatus = localStorage.getItem('admin_authenticated');
+    if (authStatus === 'true') {
+      setIsAuthenticated(true);
+      loadMenuData();
+    } else {
+      // Redirect to main admin page for login
+      router.push('/admin');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -83,6 +94,17 @@ export default function AdminStockPage() {
   const totalValue = menuItems.reduce((sum, item) => sum + (item.price * item.stock), 0);
   const lowStockCount = menuItems.filter(item => item.stock > 0 && item.stock <= 5).length;
   const outOfStockCount = menuItems.filter(item => item.stock === 0).length;
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">🔐</div>
+          <p className="text-gray-600">Memverifikasi akses admin...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

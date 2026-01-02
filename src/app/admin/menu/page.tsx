@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/Sidebar';
 import { MenuItem, loadStock, saveStock } from '@/lib/orderUtils';
 
 export default function AdminMenuPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
@@ -17,6 +19,7 @@ export default function AdminMenuPage() {
     image: '',
     description: ''
   });
+  const router = useRouter();
 
   const loadMenuData = () => {
     const stock = loadStock();
@@ -24,7 +27,15 @@ export default function AdminMenuPage() {
   };
 
   useEffect(() => {
-    loadMenuData();
+    // Check if already authenticated
+    const authStatus = localStorage.getItem('admin_authenticated');
+    if (authStatus === 'true') {
+      setIsAuthenticated(true);
+      loadMenuData();
+    } else {
+      // Redirect to main admin page for login
+      router.push('/admin');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -80,6 +91,17 @@ export default function AdminMenuPage() {
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">🔐</div>
+          <p className="text-gray-600">Memverifikasi akses admin...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
