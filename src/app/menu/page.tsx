@@ -71,27 +71,27 @@ export default function MenuPage() {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <div className="mb-6">
-            <span className="text-7xl animate-bounce">☕</span>
+      <main className="container mx-auto px-4 py-8 md:py-12">
+        <div className="text-center mb-8 md:mb-12">
+          <div className="mb-4 md:mb-6">
+            <span className="text-5xl md:text-7xl animate-bounce">☕</span>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-800 via-orange-700 to-red-700 bg-clip-text text-transparent mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-amber-800 via-orange-700 to-red-700 bg-clip-text text-transparent mb-4 md:mb-6 px-2">
             Menu Kopi Kami
           </h1>
-          <p className="text-xl text-amber-800 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-amber-800 max-w-3xl mx-auto leading-relaxed px-4">
             Pilih kopi favorit Anda dari berbagai pilihan menu berkualitas tinggi.
             Stok diperbarui secara real-time untuk pengalaman terbaik.
           </p>
         </div>
 
         {cart.length > 0 && (
-          <div className="bg-gradient-to-r from-amber-100 to-orange-100 border-2 border-amber-300 rounded-2xl p-6 mb-12 max-w-3xl mx-auto shadow-xl animate-fade-in">
-            <div className="flex items-center justify-between">
+          <div className="bg-gradient-to-r from-amber-100 to-orange-100 border-2 border-amber-300 rounded-2xl p-4 md:p-6 mb-8 md:mb-12 max-w-3xl mx-auto shadow-xl animate-fade-in">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="text-3xl">🛒</span>
-                <div>
-                  <p className="text-amber-900 font-bold text-lg">
+                <span className="text-2xl md:text-3xl">🛒</span>
+                <div className="text-center sm:text-left">
+                  <p className="text-amber-900 font-bold text-base md:text-lg">
                     {getTotalCartItems()} item{getTotalCartItems() > 1 ? 's' : ''} ditambahkan ke keranjang
                   </p>
                   <p className="text-amber-700 text-sm">Siap untuk checkout!</p>
@@ -99,7 +99,7 @@ export default function MenuPage() {
               </div>
               <a
                 href="/order"
-                className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 whitespace-nowrap"
               >
                 Lihat Keranjang →
               </a>
@@ -107,7 +107,7 @@ export default function MenuPage() {
           </div>
         )}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
           {menuItems.map((item) => (
             <MenuCard
               key={item.id}
@@ -118,10 +118,10 @@ export default function MenuPage() {
         </div>
 
         {menuItems.length === 0 && (
-          <div className="text-center py-20">
-            <div className="text-8xl mb-6 animate-spin">☕</div>
-            <h3 className="text-2xl font-bold text-amber-900 mb-4">Menu Sedang Dimuat</h3>
-            <p className="text-amber-700 text-lg">Mohon tunggu sebentar...</p>
+          <div className="text-center py-12 md:py-20">
+            <div className="text-6xl md:text-8xl mb-4 md:mb-6 animate-spin">☕</div>
+            <h3 className="text-xl md:text-2xl font-bold text-amber-900 mb-2 md:mb-4">Menu Sedang Dimuat</h3>
+            <p className="text-amber-700 text-base md:text-lg">Mohon tunggu sebentar...</p>
           </div>
         )}
       </main>

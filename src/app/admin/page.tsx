@@ -119,73 +119,73 @@ export default function AdminPage() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="text-2xl mb-2">📋</div>
-                <div className="text-3xl font-bold text-gray-900">{orders.length}</div>
-                <div className="text-gray-600">Total Pesanan</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8">
+              <div className="bg-white p-3 md:p-6 rounded-lg shadow-md">
+                <div className="text-lg md:text-2xl mb-1 md:mb-2">📋</div>
+                <div className="text-xl md:text-3xl font-bold text-gray-900">{orders.length}</div>
+                <div className="text-xs md:text-sm text-gray-600">Total Pesanan</div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="text-2xl mb-2">⏳</div>
-                <div className="text-3xl font-bold text-yellow-600">
+              <div className="bg-white p-3 md:p-6 rounded-lg shadow-md">
+                <div className="text-lg md:text-2xl mb-1 md:mb-2">⏳</div>
+                <div className="text-xl md:text-3xl font-bold text-yellow-600">
                   {orders.filter(o => o.status === 'PENDING').length}
                 </div>
-                <div className="text-gray-600">Pending</div>
+                <div className="text-xs md:text-sm text-gray-600">Pending</div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="text-2xl mb-2">🔄</div>
-                <div className="text-3xl font-bold text-blue-600">
+              <div className="bg-white p-3 md:p-6 rounded-lg shadow-md">
+                <div className="text-lg md:text-2xl mb-1 md:mb-2">🔄</div>
+                <div className="text-xl md:text-3xl font-bold text-blue-600">
                   {orders.filter(o => o.status === 'PROSES').length}
                 </div>
-                <div className="text-gray-600">Diproses</div>
+                <div className="text-xs md:text-sm text-gray-600">Diproses</div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="text-2xl mb-2">✅</div>
-                <div className="text-3xl font-bold text-green-600">
+              <div className="bg-white p-3 md:p-6 rounded-lg shadow-md">
+                <div className="text-lg md:text-2xl mb-1 md:mb-2">✅</div>
+                <div className="text-xl md:text-3xl font-bold text-green-600">
                   {orders.filter(o => o.status === 'SUKSES').length}
                 </div>
-                <div className="text-gray-600">Selesai</div>
+                <div className="text-xs md:text-sm text-gray-600">Selesai</div>
               </div>
             </div>
 
             {/* Recent Orders */}
             <div className="bg-white rounded-lg shadow-md">
-              <div className="p-6 border-b border-gray-200">
-                <h2 className="text-xl font-semibold text-gray-900">Pesanan Terbaru</h2>
+              <div className="p-4 md:p-6 border-b border-gray-200">
+                <h2 className="text-lg md:text-xl font-semibold text-gray-900">Pesanan Terbaru</h2>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full min-w-full md:min-w-0">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SN</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Menu</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SN</th>
+                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Menu</th>
+                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                      <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {orders.slice(0, 10).map((order) => (
                       <tr key={order.sn} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
                           {order.sn}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
                           {order.items.length} item{order.items.length > 1 ? 's' : ''}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900">
                           Rp{order.total.toLocaleString('id-ID')}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap">
                           <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(order.status)}`}>
                             {order.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
                           {new Date(order.createdAt).toLocaleDateString('id-ID')}
                         </td>
                       </tr>
@@ -195,9 +195,9 @@ export default function AdminPage() {
               </div>
 
               {orders.length === 0 && (
-                <div className="p-8 text-center">
-                  <div className="text-4xl mb-4">📋</div>
-                  <p className="text-gray-500">Belum ada pesanan</p>
+                <div className="p-6 md:p-8 text-center">
+                  <div className="text-3xl md:text-4xl mb-3 md:mb-4">📋</div>
+                  <p className="text-sm md:text-base text-gray-500">Belum ada pesanan</p>
                 </div>
               )}
             </div>
