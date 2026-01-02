@@ -5,7 +5,7 @@
       "name": "Cappuccino",
       "price": 25000,
       "stock": 10,
-      "image": "/images/cappuccino.jpg",
+      "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
       "description": "Classic Italian coffee with steamed milk foam"
     },
     {
@@ -13,7 +13,7 @@
       "name": "Espresso",
       "price": 20000,
       "stock": 15,
-      "image": "/images/espresso.jpg",
+      "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
       "description": "Strong and concentrated coffee shot"
     },
     {
@@ -21,7 +21,7 @@
       "name": "Latte",
       "price": 28000,
       "stock": 8,
-      "image": "/images/latte.jpg",
+      "image": "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
       "description": "Smooth coffee with steamed milk"
     },
     {
@@ -29,7 +29,7 @@
       "name": "Americano",
       "price": 22000,
       "stock": 12,
-      "image": "/images/americano.jpg",
+      "image": "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
       "description": "Espresso diluted with hot water"
     },
     {
@@ -37,7 +37,7 @@
       "name": "Mocha",
       "price": 30000,
       "stock": 6,
-      "image": "/images/mocha.jpg",
+      "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
       "description": "Chocolate flavored coffee with milk"
     },
     {
@@ -45,7 +45,7 @@
       "name": "Caramel Macchiato",
       "price": 32000,
       "stock": 5,
-      "image": "/images/caramel-macchiato.jpg",
+      "image": "https://images.unsplash.com/photo-1485808191679-5f86510681a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
       "description": "Vanilla syrup, espresso, and caramel"
     }
   ]
