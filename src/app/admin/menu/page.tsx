@@ -34,9 +34,11 @@ export default function AdminMenuPage() {
         setIsAuthenticated(true);
         await loadMenuData();
       } else {
-      // Redirect to main admin page for login
-      router.push('/admin');
-    }
+        // Redirect to main admin page for login
+        router.push('/admin');
+      }
+    };
+    init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
